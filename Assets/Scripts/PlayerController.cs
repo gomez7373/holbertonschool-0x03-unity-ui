@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; // ✅ Para usar Text en UI
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;           // Velocidad del jugador
-    public int health = 5;             // Vida del jugador
+    public float speed = 5f;             // Velocidad del jugador
+    public int health = 5;               // Vida del jugador
+    public Text scoreText;               // ✅ Texto en UI para mostrar puntaje
 
-    private int score = 0;             // Puntaje inicial
-    private Rigidbody rb;              // Referencia al Rigidbody
+    private int score = 0;               // Puntaje inicial
+    private Rigidbody rb;                // Referencia al Rigidbody
     private float teleportCooldown = 0f; // Tiempo de espera entre teletransportes
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); // Obtener Rigidbody del jugador
+        rb = GetComponent<Rigidbody>();
+        SetScoreText(); // ✅ Mostrar "Score: 0" al iniciar
     }
 
     void FixedUpdate()
@@ -42,7 +45,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Pickup"))
         {
             score++;
-            Debug.Log("Score: " + score);
+            SetScoreText(); // ✅ Actualiza el texto en pantalla
             other.gameObject.SetActive(false);
         }
 
@@ -62,7 +65,6 @@ public class PlayerController : MonoBehaviour
         // Teletransportarse
         if (other.CompareTag("Teleporter"))
         {
-            // Evitar múltiples teletransportes seguidos
             if (Time.time < teleportCooldown)
                 return;
 
@@ -72,12 +74,18 @@ public class PlayerController : MonoBehaviour
             {
                 if (tp.transform != other.transform)
                 {
-                    transform.position = tp.transform.position + new Vector3(0, 1, 0); // Teleport con ajuste vertical
+                    transform.position = tp.transform.position + new Vector3(0, 1, 0);
                     Debug.Log("Teleported!");
-                    teleportCooldown = Time.time + 1f; // 1 segundo de cooldown
+                    teleportCooldown = Time.time + 1f;
                     break;
                 }
             }
         }
+    }
+
+    // ✅ Método para actualizar texto de puntaje
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score;
     }
 }
