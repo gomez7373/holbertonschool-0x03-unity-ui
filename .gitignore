@@ -1,0 +1,114 @@
+# ==============================
+# ✅ IGNORE UNITY AUTO-GENERATED FILES
+# ==============================
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+Recordings/
+
+# ==============================
+# ✅ IGNORE UNITY PACKAGE FILES
+# ==============================
+Packages/
+Assets/AddressableAssetsData/*/*.bin*
+
+# ==============================
+# ✅ IGNORE IDE-SPECIFIC FILES
+# ==============================
+.vs/
+.gradle/
+.consulo/
+.idea/
+.rider/
+ExportedObj/
+
+# ==============================
+# ✅ IGNORE UNITY PROJECT FILES
+# ==============================
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ==============================
+# ✅ IGNORE CRASH REPORT FILES
+# ==============================
+sysinfo.txt
+crashlytics-build.properties
+
+# ==============================
+# ✅ IGNORE BUILD FILES
+# ==============================
+*.apk
+*.aab
+*.unitypackage
+*.unitypackage.meta
+*.app
+
+# ==============================
+# ✅ IGNORE TEMPORARY UNITY FILES
+# ==============================
+Assets/StreamingAssets/aa.meta
+Assets/StreamingAssets/aa/
+
+# ==============================
+# ✅ IGNORE UNNECESSARY UNITY META FILES
+# ==============================
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+*.unitypackage.meta
+*.asset.meta
+*.prefab.meta
+*.scene.meta
+*.mat.meta
+*.controller.meta
+*.anim.meta
+
+# ==============================
+# ✅ IGNORE UNITY SETTINGS FILES
+# ==============================
+ProjectSettings/ProjectVersion.txt
+ProjectSettings/QualitySettings.asset
+ProjectSettings/TagManager.asset
+ProjectSettings/InputManager.asset
+ProjectSettings/EditorBuildSettings.asset
+ProjectSettings/TimeManager.asset
+ProjectSettings/GraphicsSettings.asset
+ProjectSettings/DynamicsManager.asset
+ProjectSettings/ClusterInputManager.asset
+ProjectSettings/NavMeshAreas.asset
+ProjectSettings/NetworkManager.asset
+
+# ==============================
+# ✅ IGNORE GENERATED UNITY LIGHTMAP FILES
+# ==============================
+Assets/**/*.giparams
+Assets/**/*.giparams.meta
+
+# ==============================
+# ✅ IGNORE MACOS & LINUX SYSTEM FILES
+# ==============================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
