@@ -31,6 +31,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public Text healthText;
 
+    /// <summary>
+    /// Texto que muestra mensaje de victoria o derrota.
+    /// </summary>
+    public Text winLoseText;
+
+    /// <summary>
+    /// Fondo del mensaje de victoria o derrota.
+    /// </summary>
+    public Image winLoseBG;
+
     private int score = 0;
     private Rigidbody rb;
     private float teleportCooldown = 0f;
@@ -86,12 +96,15 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             SetHealthText(); // ✅ Actualiza la UI con la nueva salud
-            // Debug.Log("Health: " + health); // ❌ Línea eliminada como indica el task
+            // Debug.Log("Health: " + health);
         }
 
         if (other.CompareTag("Goal"))
         {
-            Debug.Log("You win!");
+            winLoseText.text = "You Win!";
+            winLoseText.color = Color.black;
+            winLoseBG.color = Color.green;
+            winLoseBG.gameObject.SetActive(true); // ✅ Mostrar el fondo si estaba desactivado
         }
 
         if (other.CompareTag("Teleporter"))
