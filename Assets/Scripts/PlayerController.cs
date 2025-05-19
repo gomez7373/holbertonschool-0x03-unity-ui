@@ -2,24 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // ✅ Para usar Text en UI
+using UnityEngine.UI;
 
+/// <summary>
+/// Controlador principal del jugador. Maneja movimiento, puntuación, salud,
+/// interacciones con objetos (trampas, pickups, teleporters y meta),
+/// y actualización de la interfaz de usuario.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;             // Velocidad del jugador
-    public int health = 5;               // Vida del jugador
-    public Text scoreText;               // ✅ Texto en UI para mostrar puntaje
+    /// <summary>
+    /// Velocidad del jugador.
+    /// </summary>
+    public float speed = 5f;
 
-    private int score = 0;               // Puntaje inicial
-    private Rigidbody rb;                // Referencia al Rigidbody
-    private float teleportCooldown = 0f; // Tiempo de espera entre teletransportes
+    /// <summary>
+    /// Vida del jugador.
+    /// </summary>
+    public int health = 5;
 
+    /// <summary>
+    /// Texto en la UI que muestra el puntaje.
+    /// </summary>
+    public Text scoreText;
+
+    /// <summary>
+    /// Texto en la UI que muestra la salud.
+    /// </summary>
+    public Text healthText;
+
+    private int score = 0;
+    private Rigidbody rb;
+    private float teleportCooldown = 0f;
+
+    /// <summary>
+    /// Inicializa componentes y muestra los valores iniciales en pantalla.
+    /// </summary>
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        SetScoreText(); // ✅ Mostrar "Score: 0" al iniciar
+        SetScoreText();
+        SetHealthText();
     }
 
+    /// <summary>
+    /// Controla el movimiento del jugador usando input horizontal y vertical.
+    /// </summary>
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -29,9 +57,11 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
+    /// <summary>
+    /// Reinicia la escena si la salud del jugador llega a cero.
+    /// </summary>
     void Update()
     {
-        // Reiniciar si la vida llega a cero
         if (health <= 0)
         {
             Debug.Log("Game Over!");
@@ -39,30 +69,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gestiona colisiones con pickups, trampas, teleporters y meta.
+    /// </summary>
+    /// <param name="other">El collider con el que el jugador entra en contacto.</param>
     void OnTriggerEnter(Collider other)
     {
-        // Recolectar objetos
         if (other.CompareTag("Pickup"))
         {
             score++;
-            SetScoreText(); // ✅ Actualiza el texto en pantalla
+            SetScoreText();
             other.gameObject.SetActive(false);
         }
 
-        // Recibir daño
         if (other.CompareTag("Trap"))
         {
             health--;
-            Debug.Log("Health: " + health);
+            SetHealthText(); // ✅ Actualiza la UI con la nueva salud
+            // Debug.Log("Health: " + health); // ❌ Línea eliminada como indica el task
         }
 
-        // Ganar el juego
         if (other.CompareTag("Goal"))
         {
             Debug.Log("You win!");
         }
 
-        // Teletransportarse
         if (other.CompareTag("Teleporter"))
         {
             if (Time.time < teleportCooldown)
@@ -83,9 +114,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // ✅ Método para actualizar texto de puntaje
+    /// <summary>
+    /// Actualiza el texto de puntaje en la UI.
+    /// </summary>
     void SetScoreText()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    /// <summary>
+    /// Actualiza el texto de salud en la UI.
+    /// </summary>
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health;
     }
 }
