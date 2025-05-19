@@ -56,18 +56,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Controla el movimiento del jugador usando input horizontal y vertical.
-    /// </summary>
-    void FixedUpdate()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        rb.AddForce(movement * speed);
-    }
-
-    /// <summary>
     /// Verifica si la salud del jugador llega a cero y muestra mensaje de Game Over.
     /// </summary>
     void Update()
@@ -77,9 +65,8 @@ public class PlayerController : MonoBehaviour
             winLoseText.text = "Game Over!";
             winLoseText.color = Color.white;
             winLoseBG.color = Color.red;
-            winLoseBG.gameObject.SetActive(true); // ✅ Mostrar fondo rojo con mensaje
-            // Debug.Log("Game Over!");
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Se comenta por Task 7
+            winLoseBG.gameObject.SetActive(true);
+            StartCoroutine(LoadScene(3)); // Espera 3 segundos antes de reiniciar
         }
     }
 
@@ -100,7 +87,6 @@ public class PlayerController : MonoBehaviour
         {
             health--;
             SetHealthText();
-            // Debug.Log("Health: " + health);
         }
 
         if (other.CompareTag("Goal"))
@@ -109,6 +95,7 @@ public class PlayerController : MonoBehaviour
             winLoseText.color = Color.black;
             winLoseBG.color = Color.green;
             winLoseBG.gameObject.SetActive(true);
+            StartCoroutine(LoadScene(3)); // Espera 3 segundos antes de reiniciar
         }
 
         if (other.CompareTag("Teleporter"))
@@ -129,6 +116,16 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Recarga la escena después de esperar X segundos.
+    /// </summary>
+    /// <param name="seconds">Tiempo a esperar antes de reiniciar.</param>
+    IEnumerator LoadScene(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>
