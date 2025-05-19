@@ -68,14 +68,18 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Reinicia la escena si la salud del jugador llega a cero.
+    /// Verifica si la salud del jugador llega a cero y muestra mensaje de Game Over.
     /// </summary>
     void Update()
     {
         if (health <= 0)
         {
-            Debug.Log("Game Over!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            winLoseText.text = "Game Over!";
+            winLoseText.color = Color.white;
+            winLoseBG.color = Color.red;
+            winLoseBG.gameObject.SetActive(true); // ✅ Mostrar fondo rojo con mensaje
+            // Debug.Log("Game Over!");
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Se comenta por Task 7
         }
     }
 
@@ -95,7 +99,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Trap"))
         {
             health--;
-            SetHealthText(); // ✅ Actualiza la UI con la nueva salud
+            SetHealthText();
             // Debug.Log("Health: " + health);
         }
 
@@ -104,7 +108,7 @@ public class PlayerController : MonoBehaviour
             winLoseText.text = "You Win!";
             winLoseText.color = Color.black;
             winLoseBG.color = Color.green;
-            winLoseBG.gameObject.SetActive(true); // ✅ Mostrar el fondo si estaba desactivado
+            winLoseBG.gameObject.SetActive(true);
         }
 
         if (other.CompareTag("Teleporter"))
