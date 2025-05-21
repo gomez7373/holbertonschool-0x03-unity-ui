@@ -1191,7 +1191,7 @@ GameObject:
   - component: {fileID: 1470521545}
   - component: {fileID: 1470521544}
   m_Layer: 5
-  m_Name: 'OptionsTitle '
+  m_Name: OptionsTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
