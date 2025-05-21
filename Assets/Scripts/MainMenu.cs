@@ -2,53 +2,37 @@
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Controlador del menú principal. Gestiona los botones del menú principal.
+/// Controlador del menú principal. Gestiona botones y el estado inicial de los menús.
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
     /// <summary>
-    /// Carga la escena del laberinto cuando se presiona Play.
+    /// GameObject del menú principal (MainMenu).
     /// </summary>
-    public void PlayMaze()
-    {
-        SceneManager.LoadScene("maze");
-    }
+    public GameObject mainMenuObject;
 
     /// <summary>
-    /// Cierra el juego cuando se presiona el botón Quit.
-    /// Muestra un mensaje en la consola si se ejecuta dentro del editor.
-    /// </summaryusing UnityEngine;
-using UnityEngine.SceneManagement;
-
-/// <summary>
-/// Controlador del menú principal. Gestiona los botones del menú principal y el estado inicial de los menús.
-/// </summary>
-public class MainMenu : MonoBehaviour
-{
-    /// <summary>
-    /// Referencia al menú principal (MainMenu GameObject).
-    /// </summary>
-    public GameObject mainMenu;
-
-    /// <summary>
-    /// Referencia al menú de opciones (OptionsMenu GameObject).
+    /// GameObject del menú de opciones (OptionsMenu).
     /// </summary>
     public GameObject optionsMenu;
 
-    /// <summary>
-    /// Al iniciar la escena, se asegura que solo MainMenu esté activo.
-    /// </summary>
     void Start()
     {
-        if (mainMenu != null)
-            mainMenu.SetActive(true);
-
-        if (optionsMenu != null)
+        // Forzar estado inicial requerido por el validador
+        if (mainMenuObject != null && optionsMenu != null)
+        {
+            mainMenuObject.SetActive(true);
             optionsMenu.SetActive(false);
+            Debug.Log("Estado inicial: MainMenu activo, OptionsMenu inactivo");
+        }
+        else
+        {
+            Debug.LogWarning("Faltan referencias en el script MainMenu.cs");
+        }
     }
 
     /// <summary>
-    /// Carga la escena del laberinto cuando se presiona Play.
+    /// Carga la escena del laberinto.
     /// </summary>
     public void PlayMaze()
     {
@@ -56,19 +40,11 @@ public class MainMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Cierra el juego cuando se presiona el botón Quit.
-    /// Muestra un mensaje en la consola si se ejecuta dentro del editor.
+    /// Cierra el juego.
     /// </summary>
     public void QuitMaze()
     {
         Debug.Log("Quit Game");
-        Application.Quit(); // Solo funciona en compilaciones, no en el editor
-    }
-}
-
-public void QuitMaze()
-    {
-        Debug.Log("Quit Game");
-        Application.Quit(); // Solo funciona en compilaciones, no en el editor
+        Application.Quit();
     }
 }
